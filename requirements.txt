@@ -1,0 +1,15 @@
+pandas
+numpy
+PyYAML
+tqdm
+scikit-learn
+networkx
+matplotlib
+plotly
+scikit-learn
+KoreanNLP
+kiwipiepy
+konlpy
+soynlp
+bertopic
+jinja2

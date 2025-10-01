@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+.venv/
+
+# Logs
+logs/
+*.log
+
+# Data (large raw files)
+data/raw/*
+!data/raw/.gitkeep
+
+# Interim / Processed (선택적으로 관리)
+data/interim/*
+data/processed/*
+outputs/*

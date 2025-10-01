@@ -1,0 +1,13 @@
+# Very rough starter; refine later
+space:
+  - 공간
+  - 대관
+  - 인테리어
+people:
+  - 주민
+  - 참여자
+  - 청년
+assets:
+  - 자원
+  - 예산
+  - 데이터

@@ -1,0 +1,65 @@
+# configs/config.yaml
+# Global configuration for the keyword analysis pipeline
+project_name: "keyword_analysis_project"
+timezone: "Asia/Seoul"
+random_seed: 42
+
+paths:
+  data_raw: "data/raw"
+  data_interim: "data/interim"
+  data_processed: "data/processed"
+  outputs: "outputs"
+  dicts: "dicts"
+  logs: "logs"
+
+input:
+  json_file: "data/raw/filtered_blog2.json"
+  text_fields: ["title", "content"]   # fields to concatenate as full_text
+
+cleaning:
+  drop_duplicates_on: ["url", "title"]  # Any of these present → drop dups
+  strip_hashtags: false                  # keep hashtags text but remove '#'
+  remove_urls: true
+  remove_emojis: true
+  keep_hangul_only: false               # if true, non-Korean letters removed
+  min_doc_length: 20                    # characters
+  date_field: "date"                    # if available (YYYY-MM-DD or similar)
+  date_format_infer: true
+  month_floor: true                     # derive YYYY-MM for time trends
+
+tokenization:
+  engine: "kiwipiepy"                   # options: kiwipiepy|okt|komoran|simple
+  pos_keep: ["NNG","NNP","SL"]          # only for morph analyzers (ignored for 'simple')
+  to_lower: true
+  min_token_len: 2
+  use_synonyms: true
+
+dictionaries:
+  stopwords: "dicts/stopwords.txt"
+  synonyms: "dicts/synonyms.csv"        # columns: from,to
+  program_list: "dicts/program_list.csv"
+  layer_rules: "dicts/layer_rules.yml"  # layer tagging rules (space/people/assets)
+  persona_rules: "dicts/persona_rules.yml"
+
+features:
+  topk: 50                             # for top-k keywords 보고서 용으로는 20~50 정도사용  -> 너무 높게 잡으면 의미없는 단어가 많이 나옴 -> 풍성해보이려면 나중에 조정
+  ngram_min: 2
+  ngram_max: 3
+  window_size: 10                       # for co-occurrence
+  min_cooc_count: 3
+
+topic_modeling:
+  engine: "lda"                         # options: bertopic|lda
+  num_topics: 21
+  max_features: 3000
+  max_df: 0.95
+  min_df: 5
+
+ner:
+  use_rule_based: true
+
+classify:
+  enable_ml_refine: false               # set true after you create labeled samples
+
+dashboard:
+  output_html: "outputs/dashboard/dash.html"
