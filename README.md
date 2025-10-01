@@ -42,22 +42,24 @@ keyword_analysis_project/
 │  └─ config.yaml              # 파이프라인 설정
 ├─ data/
 │  ├─ raw/                     # 원본 데이터셋 스냅샷
-│  │  ├─ B
-log_raw_data
 │  │  │  └─ filtered_blog2.json
-│  │  └─ News_raw_data
-│  │     └─ filtered_blog2.json
 │  ├─ interim/                 # 중간 산출물 (run_id 단위)
 │  │  └─ {run_id}/
-│  │     ├─ cleaned.csv
-│  │     └─ tokens.csv
+│  │  │  ├─ cleaned.csv
+│  │  │  ├─ id_map.csv
+│  │  │  └─ tokens.csv
+│  │  └─ latest_run.json
 │  └─ processed/               # 최종 가공 산출물 (run_id 단위)
 │     └─ {run_id}/
+│        ├─ cooc_edges.csv
+│        ├─ cooc_network_dict.png
+│        ├─ cooc_nodes_full.csv
+│        ├─ ngrams.csv
 │        ├─ keywords_top.csv
-│        ├─ ngrams_edges.csv
-│        ├─ topics.json
 │        ├─ entities.csv
-│        └─ layer_tags.csv
+│        ├─ topics_topwords.csv
+│        ├─ topics.csv
+│        └─ word_dictionary.csv
 ├─ dicts/
 │  ├─ stopwords.txt
 │  ├─ synonyms.csv
@@ -65,7 +67,7 @@ log_raw_data
 │  ├─ layer_rules.yml
 │  └─ persona_rules.yml
 ├─ logs/
-│  └─ *.log
+│  └─ _main_.log
 ├─ outputs/
 │  ├─ runs/
 │  │  └─ {run_id}/dashboard/
@@ -78,6 +80,9 @@ src/
 ├─ 03_keywords_tfidf.py        # 현재: 빈도 기반 placeholder
 │   └─ 03_keywords_tfidf_true.py   # planned: 실제 TF-IDF
 ├─ 04_ngrams_cooc.py           # 의미단위 그룹화
+│   ├─ 04a1_word_dictionary.py
+│   ├─ 04a2_visualize_with_dictionary.py
+│   └─ 04c_networkit_stats_full.py
 ├─ 05_topics.py                # 현재: 초성 그룹 placeholder
 │   ├─ 05_topics_lda.py        # planned: LDA
 │   └─ 05_topics_bertopic.py   # planned: BERTopic
@@ -88,6 +93,7 @@ src/
 ├─ 08_dashboard.py             # 현재: 간단한 HTML 대시보드
 │   └─ 08_dashboard_plotly.py  # planned: Plotly 인터랙티브
 ├─ utils/
+│   │ └─ _pycache_/
 │   ├─ config.py
 │   ├─ io.py
 │   ├─ log.py
